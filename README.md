@@ -13,18 +13,12 @@ For more info please see: *https://infiniteperipherals.github.io/QPayBrowser/*
 
 ## Downloads
 
-You can find the lastest version of Quantum Pay Browser at [https://github.com/InfinitePeripherals/QPayBrowser/releases](https://github.com/InfinitePeripherals/QPayBrowser/releases)
+You can find the lastest version of Quantum Pay Browser at [https://github.com/InfinitePeripherals/QPayBrowser/releases](https://github.com/InfinitePeripherals/QPayBrowser/releases).
 
 ## Getting Started
 
-For a guide on how to set up and use QuantumPay Browser, please check out one of the guides below.
-
-- [Getting Started](https://infiniteperipherals.github.io/QPayBrowser)
-
-## Documentation
-
-- The documentation can be found at [https://infiniteperipherals.github.io/QPayBrowser/](https://infiniteperipherals.github.io/QPayBrowser/)
-- The API reference is located at [https://infiniteperipherals.github.io/QPayBrowser/api-docs](https://infiniteperipherals.github.io/QPayBrowser/api-docs)
+- The Getting Started documentation can be found at [Getting Started](https://infiniteperipherals.github.io/QPayBrowser/).
+- The API reference is located at [api-docs](https://infiniteperipherals.github.io/QPayBrowser/api-docs).
 
 ## Getting Help
 
