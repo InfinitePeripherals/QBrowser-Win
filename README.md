@@ -1,9 +1,9 @@
 ![QuantumPay Browser](https://github.com/ipclucas/JekyllTest/blob/master/docs/assets/images/logos/quantumpay-dark.png)
 
-# QuantumPay Browser for Windows
-QuantumPay Browser demo project For Windows
+# QuantumPay Browser
+QuantumPay Browser demo project.
 
-For more info please see: *https://infiniteperipherals.github.io/QBrowser-Win/*
+For more info please see: *https://infiniteperipherals.github.io/QPayBrowser/*
 
 ## SDK Requirements
 
@@ -13,18 +13,18 @@ For more info please see: *https://infiniteperipherals.github.io/QBrowser-Win/*
 
 ## Downloads
 
-You can find the lastest version of QuantumPay at [https://github.com/InfinitePeripherals/QBrowser-Win/releases](https://github.com/InfinitePeripherals/QBrowser-Win/releases)
+You can find the lastest version of Quantum Pay Browser at [https://github.com/InfinitePeripherals/QPayBrowser/releases](https://github.com/InfinitePeripherals/QPayBrowser/releases)
 
 ## Getting Started
 
 For a guide on how to set up and use QuantumPay Browser, please check out one of the guides below.
 
-- [Getting Started](https://infiniteperipherals.github.io/QBrowser-Win/getting-started/getting-started.html)
+- [Getting Started](https://infiniteperipherals.github.io/QPayBrowser/getting-started/getting-started.html)
 
 ## Documentation
 
-- The documentation can be found at [https://infiniteperipherals.github.io/QBrowser-Win/](https://infiniteperipherals.github.io/QBrowser-Win/)
-- The API reference is located at [https://infiniteperipherals.github.io/QBrowser-Win/api-docs](https://infiniteperipherals.github.io/QBrowser-Win/api-docs)
+- The documentation can be found at [https://infiniteperipherals.github.io/QPayBrowser/](https://infiniteperipherals.github.io/QPayBrowser/)
+- The API reference is located at [https://infiniteperipherals.github.io/QPayBrowser/api-docs](https://infiniteperipherals.github.io/QPayBrowser/api-docs)
 
 ## Getting Help
 
