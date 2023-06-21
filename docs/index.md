@@ -184,8 +184,10 @@ invoiceBuilder.build(invoiceBuildSuccess, invoiceBuildError);
 Transaction must be built after PaymentEngine has successfully created.
 
 1. Build
+
 Build transaction with previous created invoice.
 If invoice is null, transaction will be created without invoice. Depending on your gateway / processor agreement, the invoice data may be mandatory.
+
 ```javascript
 function invoiceBuildSuccess(invoice) {
     buildTransaction(invoice);
