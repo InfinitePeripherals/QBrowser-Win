@@ -19,7 +19,7 @@ You can find the lastest version of Quantum Pay Browser at [https://github.com/I
 
 For a guide on how to set up and use QuantumPay Browser, please check out one of the guides below.
 
-- [Getting Started](https://infiniteperipherals.github.io/QPayBrowser/getting-started/getting-started.html)
+- [Getting Started](https://infiniteperipherals.github.io/QPayBrowser)
 
 ## Documentation
 
