@@ -206,4 +206,3 @@ Conclusion
 Congratulations! You have successfully integrated the `PaymentEngine` component into your React application. You can now initiate transactions, build invoices, and handle payment-related events using QuantumPay's functionality. Customize the component according to your specific requirements to enhance your application's payment capabilities.
 
 For more detailed information and advanced usage, refer to the QuantumPay documentation and API reference.
-![image](https://github.com/InfinitePeripherals/QPayBrowser/assets/135730479/b1e02fbc-4426-4f7b-8ac1-3f1c074807cd)
