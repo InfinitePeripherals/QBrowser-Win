@@ -124,6 +124,7 @@ qpay.initialize();
 ```
 #### Setup PaymentEngine
 1. Set Event Handlers
+
 Set transaction callback functions to receive update throughout the payment process.
 ```javascript
 var paymentEngine = QBrowser.QPay.PaymentEngine;
@@ -133,7 +134,9 @@ paymentEngine.setTransactionStateHandler(transactionStateHandler);
 paymentEngine.setPeripheralStateHandler(peripheralStateHandler);
 paymentEngine.setPeripheralMessageHandler(peripheralMessageHandler);
 ```
+
 2. Build it
+
 Build a PaymentEngine object by setting its behaviour.
 ```javascript
 paymentEngine.builder(qpayError)
@@ -146,7 +149,9 @@ paymentEngine.builder(qpayError)
 ```
 
 #### Invoice
+
 Invoice and Transaction must be built after PaymentEngine has successfully created. Depending on your gateway / processor agreement, the invoice data may be mandatory.
+
 1. Setup
 ```javascript
 var invoiceBuilder = QBrowser.QPay.PaymentEngine.buildInvoice("IV12345", qpayError);
@@ -155,6 +160,7 @@ invoiceBuilder.purchaseOrderReference("PO123", qpayError);
 ```
 
 2. Add Items
+
 Use this once per item:
 ```javascript
 let invoiceItem = new InvoiceItem(
@@ -174,6 +180,7 @@ invoiceBuilder.addItem(invoiceItem, qpayError);
 ```
 
 3. Build It
+
 Build invoice with provided params above
 
 ```javascript
@@ -181,6 +188,7 @@ invoiceBuilder.build(invoiceBuildSuccess, invoiceBuildError);
 ```
 
 #### Transaction
+
 Transaction must be built after PaymentEngine has successfully created.
 
 1. Build
@@ -201,7 +209,9 @@ function buildTransaction(invoice) {
 }
 ```
 2. Start Transaction
+
 After building a transaction we can start it:
+
 ```javascript
 QBrowser.QPay.PaymentEngine.startTransaction(transactionResponse);
 // if transaction fail for any reason, the response object will contain error info on why the transaction has failed.
