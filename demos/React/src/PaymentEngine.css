@@ -1,0 +1,20 @@
+#boxTop *{
+    display:block;
+    margin-bottom: 20px;;
+}
+
+.connect__input {
+  padding:10px;
+  margin: 10px;
+}
+
+.connect__input--button button {
+  padding:10px;
+  margin: 10px;
+  background-color: #646cff;
+  width: 98%;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
