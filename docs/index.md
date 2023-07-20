@@ -69,18 +69,18 @@ function engineBuildError(message) {
 }
 ```
 #### React usage
-1. As for Version 1.0.1 React calls need use the functions parameters as string containing the name of the function, so previous call will look like this:
+
+Callback functions need be global, from a local const for example:
 ```javascript
-paymentEngine.build("engineBuildSuccess", "engineBuildError");
-```
-2. Callback functions need be global, for example:
-```javascript
-window.engineBuildSuccess = () => {
+const engineBuildSuccess = () => {
     console.log("PaymentEngine is ready!");
 };
-window.engineBuildError = (message) => {
+window.engineBuildSuccess = engineBuildSuccess;
+
+const engineBuildError = (message) => {
     alert("PaymentEngine build failed: " + message);
 };
+window.engineBuildError = engineBuildError;
 ```
 [See more at our React demo](https://github.com/InfinitePeripherals/QPayBrowser/tree/staging/demos/React)
 
@@ -219,3 +219,20 @@ function transactionResponse(response) {
     console.log("Response: " + JSON.stringify(response));
 }
 ```
+3. Auth/Capture Transactions
+
+For "Auth/Capture" transactions you should follow the same steps like a regular transaction with the following differences:
+* When Building transaction use `QBrowser.QPay.TransactionType.AUTH` for the first parameter in `transactionBuilder.transactionType`.
+* When ready to Capture the transaction build a transaction using the Auth TransactionID and use `QBrowser.QPay.TransactionType.CAPTURE` for the first parameter in `transactionBuilder.transactionType`.
+
+```javascript
+function captureTransaction() {
+    setTransactionType(QBrowser.QPay.TransactionType.CAPTURE);
+    var transactionBuilder = QBrowser.QPay.PaymentEngine.buildTransaction('', qpayError);
+    transactionBuilder.transactionType(QBrowser.QPay.TransactionType.CAPTURE, transaction.ID, qpayError);
+    transactionBuilder.amount(transaction.invoice.net.toString(), "USD", qpayError);
+    //After building start transaction directly:
+    transactionBuilder.build(startTransaction, transactionBuildError);
+}
+```
+[See more at our React demo: PaymentEngine.jsx](https://github.com/InfinitePeripherals/QPayBrowser/blob/main/demos/React/src/PaymentEngine.jsx)
