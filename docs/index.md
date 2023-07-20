@@ -140,6 +140,7 @@ paymentEngine.setPeripheralMessageHandler(peripheralMessageHandler);
 Build a PaymentEngine object by setting its behaviour.
 ```javascript
 paymentEngine.builder(qpayError)
+    //For BLE connection use device's serial number as the second parameter, instead of "null".
     .addPeripheral(qpay.Peripherals.QPP450, null, qpayError)
     .server(qpay.ServerEnvironments.TEST, qpayError)
     .transactionTimeout(30, qpayError)
