@@ -173,26 +173,26 @@ const PaymentEngine = () => {
         QBrowser.QPay.PaymentEngine.stopActiveTransaction(qpayError);
     };
 
-
     const getStoredTransactions = () => {
-        alert("Still not in use");
         QBrowser.QPay.PaymentEngine.getStoredTransactions(storedTransactions, qpayError);
     };
 
     const storedTransactions = (results) => {
-        alert("Still not in use");
         alert("Stored: " + JSON.stringify(results));
     };
 
+    window.storedTransactions = storedTransactions;
+    
     const uploadAllStoredTransactions = () => {
-        alert("Still not in use");
         QBrowser.QPay.PaymentEngine.uploadAllStoredTransactions(uploadedTransactions, qpayError);
     };
 
     const uploadedTransactions = (results) => {
         logToContainer("Uploaded: " + results.length + " transactions");
     };
-
+    
+    window.uploadedTransactions = uploadedTransactions;
+    
     const buildInvoiceSale = () =>{
         setTransactionType(QBrowser.QPay.TransactionType.SALE);
         buildInvoice();
