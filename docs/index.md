@@ -95,6 +95,9 @@ function loadSettings(settings) {
     document.getElementById("password").value = data.Password;
     document.getElementById("tenantKey").value = data.TenantKey;
     document.getElementById("hostKey").value = data.HostKey;
+    document.getElementById("service").value = data.Service;
+    document.getElementById("autoReconnect").value = data.AutoReconnect;
+    document.getElementById("serialNumber").value = data.SerialNumber;
 }
 
 //Save settings:
@@ -104,10 +107,23 @@ function saveSettings() {
         "Username": document.getElementById("username").value,
         "Password": document.getElementById("password").value,
         "TenantKey": document.getElementById("tenantKey").value,
-        "HostKey": document.getElementById("hostKey").value
+        "HostKey": document.getElementById("hostKey").value,
+        "Service": document.getElementById("service").value,
+        "AutoReconnect": document.getElementById("autoReconnect").value,
+        "SerialNumber": document.getElementById("serialNumber").value
     });
 }
 ```
+
+#### Auto Reconnect
+`AutoReconnect` - (use "True" or "False") When set to "True" QPayBrowser will keep and use the last connected `SerialNumber` to connect automatically to the Peripheral. 
+
+`SerialNumber` - This can be set from settigns or by sending a serial number to `.addPeripheral` [see below](#SetupPaymentEngine).
+
+Remarks:
+1. If `AutoReconnect` is "False" or if `SerialNumber` is empty/null, calling `.addPeripheral` with the second parameter null will use USB connection to connect to peripheral.
+2. When `AutoReconnect` is "True" and `SerialNumber` has value, calling `.addPeripheral` with the second parameter null will use the BLE connection to connect to the peripheral with the saved `SerialNumber`.
+3. When `AutoReconnect` is "True", calling `.addPeripheral` with a serialNumber as second parameter, if the connection is successful `SerialNumber` value will be changed to the value used in `.addPeripheral`.
 
 ### QPay
 
