@@ -118,7 +118,7 @@ function saveSettings() {
 #### Auto Reconnect
 `AutoReconnect` - (use "True" or "False") When set to "True" QPayBrowser will keep and use the last connected `SerialNumber` to connect automatically to the Peripheral. 
 
-`SerialNumber` - This can be set from settigns or by sending a serial number to `.addPeripheral` [see below](#SetupPaymentEngine).
+`SerialNumber` - This can be set from settigns or by sending a serial number to `.addPeripheral` [see below](#QPay).
 
 Remarks:
 1. If `AutoReconnect` is "False" or if `SerialNumber` is empty/null, calling `.addPeripheral` with the second parameter null will use USB connection to connect to peripheral.
