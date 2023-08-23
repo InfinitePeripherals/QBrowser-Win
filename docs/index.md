@@ -125,6 +125,9 @@ Remarks:
 2. When `AutoReconnect` is "True" and `SerialNumber` has value, calling `.addPeripheral` with the second parameter null will use the BLE connection to connect to the peripheral with the saved `SerialNumber`.
 3. When `AutoReconnect` is "True", calling `.addPeripheral` with a serialNumber as second parameter, if the connection is successful `SerialNumber` value will be changed to the value used in `.addPeripheral`.
 
+#### Battery Level
+To get the battery level of a connected peripheral call `QBrowser.Settings.getBatteryLevel`.
+
 ### QPay
 
 
