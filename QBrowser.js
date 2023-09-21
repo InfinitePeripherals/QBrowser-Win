@@ -1,9 +1,9 @@
 /**
  * @file - QBrowser.js
- * @version - Version 1.11.10
+ * @version - Version 1.11.11
  * 
  * @author - Created by Infinite Peripherals
- * @copyright - Copyright Â© 2023 Infinite Peripherals Inc. All rights reserved.
+ * @copyright - Copyright © 2023 Infinite Peripherals Inc. All rights reserved.
  * 
  * @see - {@link https://github.com/InfinitePeripherals/qbrowser-demo | Demo Project}
  */
@@ -60,36 +60,6 @@ var QBrowser = new function () {
         /* QBrowser Settings
          - defaultURL(string) - the URL that will be opened when QBrowser starts, set to blank to open the demonstration page
          - showNavigation(boolean) - enables or disables the navigation bar
-         - enablePrint(boolean) - enables or disables print button on the navigation bar
-         - busyLoader(boolean) - enables or disables the busy loader spinner
-         - keyboardDisplayRequiresUserAction(boolean) - enables or disables keyboard display requires user touch input. Default is Enable. If enable, .focus() will not work.
-         - mediaPlaybackRequiresUserAction(boolean) - enables or disables media playback needs user interaction. Default is Enable.
-         - allowsInlineMediaPlayback(boolean) - enables or disables inline media playback. Default is Disable.
-         - zoomMode(string) - the preferred zoom mode
-         - inactivityReloadsHome(string) - the time out to reload homescreen
-         - barcodeFunction(string) - javascript function that will be called, when barcode is scanned
-         - emulateKeystrokes(boolean) - enables or disables keystroke emulation of the scanned barcode
-         - submitForm(boolean) - enables or disables submitting the form after barcode have been scanned
-         - emulateCR(boolean) - enables or disables sending carriage return command after barcode is scanned
-         - emulateLF(boolean) - enables or disables sending line feed command after barcode is scanned
-         - emulateTab(boolean) - enables or disables sending tab command after barcode is scanned
-         - barcodeInNamedField(string) - if set, barcode data will be filled into the specified field name
-         - barcodeInIDField(string) - if set, barcode data will be filled into the specified field ID
-         - msrFunction(string) - javascript function that will be called, when magnetic card is swiped.
-         - msrEncryptedFunction(string) - javascript function that will be called, when encrypted magnetic card is swiped.
-         - bluetoothDiscoveryFunction(string) - javascript function that will be called, when a bluetooth device is discovered by the scanner.
-         - passThrough(boolean) - enables or disables usb passthru when plug into computer usb port
-         - usbCurrent(string) - the current that the device should draw from external cable. 0 = 500mA, 1 = 1000mA, 2 = 2400mA
-         - externalCharging(boolean) - if enabled and Linea is attached, then Linea battery will be used to charge the iOS device battery
-         - maxTTLMode(boolean) - controls charging mode. If enabled, Linea will charge often the iOS device to keep it full, this allows for longer life of both devices, but results in frequent charge phases. If disabled, the Linea will charge the iOS device only when its battery reaches 30%
-         - bounceScroll(boolean) - enables or disables bounce when scroll to top or bottom edges
-         - supportOpenWith(boolean) - enables or disables open documents with native apps on device
-         - beepUponScan(boolean) - enables or disables beep sound after a scan
-         - supportHTTPAuthentication(boolean) - enables or disables requires HTTP authentication
-         - trustServer(boolean) - enables or disables trust server's certifcate
-         - clearCookies(boolean) - enables or disables clearing out cookies when app launches
-         - isSpeakerControl(boolean) - enables or disables Infinea IX built-in speaker control
-         - isEnabledExternalSpeaker - enables or disables Infinea IX built-in speaker
          */
 
         /**
@@ -150,6 +120,22 @@ var QBrowser = new function () {
          */
         this.clearCache = function () {
             NativeCall("settings.clearCache", null, null, null);
+        }
+
+        /**
+         * Opens Settings page.
+         * @memberof Settings
+         */
+        this.open = function () {
+            NativeCall("settings.open", null, null, null);
+        }
+
+        /**
+         * Closes  Settings page.
+         * @memberof Settings
+         */
+        this.close = function () {
+            NativeCall("settings.close", null, null, null);
         }
 
         /**
@@ -758,7 +744,7 @@ var QBrowser = new function () {
         }
 
         /**
-         * Starts the generation of updates that report the userâ€™s current location
+         * Starts the generation of updates that report the user’s current location
          * @memberof GPS
          * @param {number} locationAccuracy - Accuracy of the location data that your app wants to receive
          * @param {number} distanceFilter - Minimum distance (measured in meters) a device must move horizontally before an update event is generated
@@ -2154,9 +2140,13 @@ var QBrowser = new function () {
  *************************************************/
 function GetFunctionName(name) {
     if (name && typeof name == "function") {
-        name = name.toString()
-        name = name.substr("function ".length);
-        name = name.substr(0, name.indexOf("("));
+        if (name.name) {
+            name = name.name;
+        } else {
+            name = name.toString()
+            name = name.substr("function ".length);
+            name = name.substr(0, name.indexOf("("));
+        }
     }
     else {
         if (!name)
@@ -2201,11 +2191,19 @@ function NativeCall(functionName, args, callbacks, settings) {
         var message = JSON.stringify({ "MessageType": 0, "MessageContent": messageContent });
         window.chrome.webview.postMessage(message);
     }
-    else
+    else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.webwindowinterop) {
         window.webkit.messageHandlers.scriptMessageHandler.postMessage(
-        {
-            "message": "js-frame:" + functionName + ":" + encodeURIComponent(JSON.stringify(callbacks)) + ":" + encodeURIComponent(JSON.stringify(args)) + ":" + encodeURIComponent(JSON.stringify(setArray))
-        });
+            {
+                "message": "js-frame:" + functionName + ":" + encodeURIComponent(JSON.stringify(callbacks)) + ":" + encodeURIComponent(JSON.stringify(args)) + ":" + encodeURIComponent(JSON.stringify(setArray))
+            });
+    }
+    else {
+        // Android WebView
+        var messageContent = JSON.stringify({ "functionName": functionName, "args": args, "callbacks": callbacks, "setArray": settings });
+        //For now use message type "0" it will be eassier to keep same flow as Swift code.
+        var message = JSON.stringify({ "MessageType": 0, "MessageContent": messageContent });
+        QuantumPayWebViewHost.sendMessage(message);
+    }
 };
 
 var _printImageData;
