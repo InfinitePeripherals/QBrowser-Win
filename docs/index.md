@@ -29,14 +29,15 @@ This guide describes how to get started using Quantum Pay Browser so your websit
 ## Integration Steps
 In order to use Quantum Pay Broswer with your website you will need to do 3 things:
 
-1.	Add the JavaScript library
+1.	~~Add the JavaScript library~~ Obsolete from ver 1.0.0.6 -> QuantumPay browser adds the JS code needed.
 2.	Add JavaScript code that utilizes functions provided by the library
 3.	Link your website to the app
 
 This quick start guide will go over these 3 steps, in order, and give you some sample code for some of the more common use cases of Quantum Pay Browser. 
 
-## Adding QBrowser.js
-In order to use Quantum Browser with your website you will need to include QBrowser.js. This file can be found included with our HTML demo here: link. Simply add the JavaScript file to your website like in the image below and you will have access to all the functions it provides.
+## ~~Adding QBrowser.js~~ _Obsolete from ver 1.0.0.6 -> QuantumPay browser adds the JS code needed._
+
+~~In order to use Quantum Browser with your website you will need to include QBrowser.js. This file can be found included with our HTML demo here: link. Simply add the JavaScript file to your website like in the image below and you will have access to all the functions it provides.~~
 
 ![Including QBrowser.js](image.png)
 
@@ -47,10 +48,11 @@ If you want to see QBrowser.js in action before making changes to your own code,
 ## Connecting Your Website
 When you are ready to connect your website to Quantum Pay Browser, open the app on your device and follow the steps below.
 
-![Connecting Your Website](<Screenshot 2023-06-21 at 16.41.16.png>)
+![Connecting Your Website](<Screenshot 2023-09-21 at 20.07.28.png>)
 
-1. Type in your website’s URL and click “Save Settings”
-2. If you ever want the app to open to the default HTML page again, see [Settings](#settings) part below.
+1. Click "Open Settings".
+2. Type in your website’s URL and click “Save Settings”
+3. If you ever want the app to open to the default HTML page again, see [Settings](#settings) part below.
 
 ## Using QBrowser.js
 QBrowser.js will handle all the comunication with QuantumPay Browser need by your application.
@@ -85,7 +87,8 @@ window.engineBuildError = engineBuildError;
 [See more at our React demo](https://github.com/InfinitePeripherals/QPayBrowser/tree/staging/demos/React)
 
 ### Settings
-Settings are loaded using provided start page, but if need to change anything later you can do by:
+Settings are loaded using provided page, that can accessed by calling `QBrowser.Settings.open()` from anywhere in code.
+If you want to use code to update anything you can do by:
 ```javascript
 QBrowser.Settings.get(loadSettings); // call this from anywhere in your code.
 function loadSettings(settings) {
@@ -96,12 +99,14 @@ function loadSettings(settings) {
     document.getElementById("tenantKey").value = data.TenantKey;
     document.getElementById("hostKey").value = data.HostKey;
     document.getElementById("service").value = data.Service;
-    document.getElementById("autoReconnect").value = data.AutoReconnect;
+    document.getElementById("autoReconnect").checked = data.AutoReconnect;
     document.getElementById("serialNumber").value = data.SerialNumber;
+    document.getElementById("showNavigation").checked = data.ShowNavigation;
 }
 
 //Save settings:
 function saveSettings() {
+    //Always send string as value.
     QBrowser.Settings.set({
         "DefaultUrl": document.getElementById("url").value, //Set this to '' to see DefaultPage.
         "Username": document.getElementById("username").value,
@@ -109,10 +114,15 @@ function saveSettings() {
         "TenantKey": document.getElementById("tenantKey").value,
         "HostKey": document.getElementById("hostKey").value,
         "Service": document.getElementById("service").value,
-        "AutoReconnect": document.getElementById("autoReconnect").value,
-        "SerialNumber": document.getElementById("serialNumber").value
+        "AutoReconnect": document.getElementById("autoReconnect").checked.toString(),
+        "SerialNumber": document.getElementById("serialNumber").value,
+        "ShowNavigation": document.getElementById("showNavigation").checked.toString()
     });
 }
+
+
+//Save settings can be done also by calling with only part of the settings:
+QBrowser.Settings.set({"ShowNavigation": "true"});
 ```
 
 #### Auto Reconnect
