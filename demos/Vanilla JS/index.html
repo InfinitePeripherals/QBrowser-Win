@@ -1,40 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Quantum Pay Sample</title>
+    <title>Quantum Pay Browser Sample</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="QBrowser.js"></script>
-    <link href="demo.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="index.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <script type="text/javascript">
-
-        var currentHTML = "";
-        var currentTransaction = null;
-        function onPageLoad() {
-            QBrowser.Settings.get(loadSettings);
-        }
-
-        function loadSettings(data) {
-            Object.entries(data).forEach(([key, value]) => console.log(key, value));
-            document.getElementById("url").value = data.DefaultUrl;
-            document.getElementById("username").value = data.Username;
-            document.getElementById("password").value = data.Password;
-            document.getElementById("tenantKey").value = data.TenantKey;
-            document.getElementById("hostKey").value = data.HostKey;
-        }
-
-        function saveSettings() {
-            QBrowser.Settings.set({
-                "DefaultUrl": document.getElementById("url").value,
-                "Username": document.getElementById("username").value,
-                "Password": document.getElementById("password").value,
-                "TenantKey": document.getElementById("tenantKey").value,
-                "HostKey": document.getElementById("hostKey").value
-            });
-        }
-        window.onload = onPageLoad;
+<script type="text/javascript">
         // ******* Payment ***************
 
         /*
@@ -48,7 +23,6 @@
         // Error function to receive any error message
         function qpayError(message) {
             logToContainer("Error: " + message);
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
 
@@ -72,9 +46,10 @@
             paymentEngine.setPeripheralStateHandler(peripheralStateHandler);
             paymentEngine.setPeripheralMessageHandler(peripheralMessageHandler);
 
+            var deviceSerialNumber = "1620900138";//use null for usb connection on Android.
             // Build a PaymentEngine object by setting its behaviour.
             paymentEngine.builder(qpayError)
-                .addPeripheral(qpay.Peripherals.QPP450, null, qpayError)
+                .addPeripheral(qpay.Peripherals.QPP450, deviceSerialNumber, qpayError)
                 .server(qpay.ServerEnvironments.TEST, qpayError)
                 .transactionTimeout(30, qpayError)
                 .emvApplicationSelectionStrategy(qpay.EmvApplicationSelectionStrategy.FIRST, qpayError)
@@ -85,17 +60,14 @@
         // Transaction callbacks
         function peripheralMessageHandler(message) {
             logToContainer(message);
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function peripheralStateHandler(state) {
             logToContainer(state);
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function transactionStateHandler(state, transaction) {
             logToContainer(state);
-            window.scrollTo(0, document.body.scrollHeight);
 
             // Update the transaction
             this.currentTransaction = transaction;
@@ -108,13 +80,10 @@
             if (resultEnum == "Approved") {
                 logToContainer("<a href='" + result.receipt.customerReceiptUrl + "'>Transaction Receipt</a>");
             }
-
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function connectionStateHandler(state) {
             logToContainer(state);
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function engineBuildError(message) {
@@ -124,7 +93,6 @@
         // When PaymentEngine successfully created, this function will get called.
         function engineBuildSuccess() {
             logToContainer("PaymentEngine is ready!");
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         // 2. Build Invoice
@@ -178,7 +146,6 @@
         function invoiceBuildSuccess(invoice) {
             // Print some info to verify
             logToContainer("Transaction amount: " + invoice.gross);
-            window.scrollTo(0, document.body.scrollHeight);
 
             buildTransaction(invoice);
         }
@@ -200,7 +167,6 @@
             // Transaction.ID is auto generated and it is used to identify the transaction. It is needed if refund or void transaction need to be processed after the sale transaction.
             // Or refund, void from the backend.
             logToContainer("Transaction ID: " + transaction.ID);
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         // 4. Start processing the transaction
@@ -212,7 +178,6 @@
         // if transaction fail for any reason, the response object will contain error info on why the transaction has failed.
         function transactionResponse(response) {
             logToContainer("Response: " + JSON.stringify(response));
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         // Stop active transaction only works if the card has not been swiped or tapped.
@@ -223,67 +188,82 @@
         // When processing in Offline mode, transactions are saved to local database.
         // This function will retrieve the list of stored transaction in DB
         function getStoredTransactions() {
-            alert("Still not in use");
-            //QBrowser.QPay.PaymentEngine.getStoredTransactions(storedTransactions, qpayError);
+            QBrowser.QPay.PaymentEngine.getStoredTransactions(storedTransactions, qpayError);
         }
 
         // Callbacks of getStoredTransaction
         function storedTransactions(results) {
-            alert("Still not in use");
-            //alert("Stored: " + JSON.stringify(results));
+            alert("Stored: " + JSON.stringify(results));
         }
 
         // Upload all stored transactions in local DB
         function uploadAllStoredTransactions() {
-            alert("Still not in use");
-            //QBrowser.QPay.PaymentEngine.uploadAllStoredTransactions(uploadedTransactions, qpayError);
+            QBrowser.QPay.PaymentEngine.uploadAllStoredTransactions(uploadedTransactions, qpayError);
         }
 
         // Callbacks with the transactions that have been uploaded
         function uploadedTransactions(results) {
             // Handle what to do here...
             logToContainer("Uploaded: " + results.length + " transactions");
-            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function getBatteryPercentage() {
+            QBrowser.Settings.getBatteryLevel(logToContainer, qpayError);
         }
 
         function logToContainer(message) {
+            console.log(message);
             var container = document.getElementById('logBox')
             var messageElement = document.createElement('p')
             messageElement.innerHTML = message
             container.appendChild(messageElement)
         }
 
+        function openSettings() {
+            QBrowser.Settings.open();
+        }
+        
+        function clearLogBox(){
+            document.getElementById("logBox").innerHTML = "";
+        }
     </script>
 
-    <div id="boxTop">
-        <p id="pTitle">Quantum Pay</p>
-        <br>
-        <button onclick="buildEngine()">Build Engine</button><br />
-        <br>
-        <button onclick="buildInvoice()">Build Invoice, Transaction</button><br />
-        <br>
-        <button onclick="startTransaction()">Start Transaction</button><br />
-        <br>
-        <button onclick="stopActiveTransaction()">Stop Active Transaction</button><br />
-        <br>
-        <button onclick="getStoredTransactions()">Get Stored Transactions</button><br />
-        <br>
-        <button onclick="uploadAllStoredTransactions()">Upload Stored Transactions</button><br />
-        <br>
+<div class="container">
+    <p class="title">QuantumPay Browser Sample</p>
+    <!-- Initialize Group -->
+    <div class="button-group">
+        <p class="group-title">Initialize</p>
+        <button class="modern-button" onclick="buildEngine()">Build Engine</button>
     </div>
-    <div class="connect__input--group">
-        <input id="url" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="http://yourapp.com">
-        <input id="username" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Username">
-        <input id="password" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="password" spellcheck="false" placeholder="QuantumPay Password">
-        <input id="tenantKey" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Tenant Key">
-        <input id="hostKey" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Host Key">
-    </div>
-    <div class="connect__input--button">
-        <button onclick="saveSettings()">Save Settings</button>
-    </div>
-    <br />
 
-    <div id="logBox"></div>
+    <!-- Transaction Group -->
+    <div class="button-group">
+        <p class="group-title">Transaction</p>
+        <button class="modern-button" onclick="buildInvoice()">Build Invoice, Transaction</button>
+        <button class="modern-button" onclick="startTransaction()">Start Transaction</button>
+        <button class="modern-button" onclick="stopActiveTransaction()">Stop Active Transaction</button>
+    </div>
+
+    <!-- StoredTransactions Group -->
+    <div class="button-group">
+        <p class="group-title">Stored Transactions</p>
+        <button class="modern-button" onclick="getStoredTransactions()">Get Stored Transactions</button>
+        <button class="modern-button" onclick="uploadAllStoredTransactions()">Upload Stored Transactions</button>
+    </div>
+
+    <!-- Separate buttons -->
+    <button class="modern-button" onclick="getBatteryPercentage()">Get Battery Percentage</button>
+    <button class="modern-button" onclick="openSettings()">OpenSettings</button>
+
+</div>
+<div class="log-box">
+    <div class="header">
+        <p class="group-title">Output</p>
+        <button class="clear-btn" onclick="clearLogBox()">X</button>
+    </div>
+    <div id="logBox" class="output"></div>
+</div>
+
 </body>
 
 </html>

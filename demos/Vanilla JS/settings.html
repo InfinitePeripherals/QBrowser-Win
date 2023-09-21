@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuantumPay Browser Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="settings.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+    function onPageLoad() {
+        QBrowser.Settings.get(loadSettings);
+    }
+
+    function loadSettings(data) {
+        Object.entries(data).forEach(([key, value]) => console.log(key, value));
+        document.getElementById("url").value = data.DefaultUrl;
+        document.getElementById("username").value = data.Username;
+        document.getElementById("password").value = data.Password;
+        document.getElementById("tenantKey").value = data.TenantKey;
+        document.getElementById("hostKey").value = data.HostKey;
+        document.getElementById("service").value = data.Service;
+        document.getElementById("autoReconnect").checked = data.AutoReconnect;
+        document.getElementById("serialNumber").value = data.SerialNumber;
+        document.getElementById("showNavigation").checked = data.ShowNavigation;
+    }
+
+    function saveSettings() {
+        QBrowser.Settings.set({
+            "DefaultUrl": document.getElementById("url").value,
+            "Username": document.getElementById("username").value,
+            "Password": document.getElementById("password").value,
+            "TenantKey": document.getElementById("tenantKey").value,
+            "HostKey": document.getElementById("hostKey").value,
+            "Service": document.getElementById("service").value,
+            "AutoReconnect": document.getElementById("autoReconnect").checked.toString(),
+            "SerialNumber": document.getElementById("serialNumber").value,
+            "ShowNavigation": document.getElementById("showNavigation").checked.toString()
+        });
+    }
+    window.onload = onPageLoad;
+    
+    function closeSettings(){
+        QBrowser.Settings.close();
+    }
+    
+</script>
+<div class="container">
+    <h2>QuantumPay Browser Settings</h2>
+
+    <label for="url">Default URL</label>
+    <input id="url" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="http://yourapp.com">
+
+    <label for="username">QuantumPay Username</label>
+    <input id="username" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Username">
+
+    <label for="password">QuantumPay Password</label>
+    <input id="password" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="password" spellcheck="false" placeholder="QuantumPay Password">
+
+    <label for="tenantKey">QuantumPay Tenant Key</label>
+    <input id="tenantKey" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Tenant Key">
+
+    <label for="hostKey">QuantumPay Host Key</label>
+    <input id="hostKey" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Host Key">
+
+    <label for="service">QuantumPay Service</label>
+    <input id="service" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="QuantumPay Service">
+
+    <label for="autoReconnect">AutoReconnect to a Peripheral
+        <input id="autoReconnect" class="connect__input--checkbox" autocomplete="off" autocorrect="off" autocapitalize="off" type="checkbox" spellcheck="false">
+    </label>
+
+    <label for="serialNumber">Peripheral SerialNumber</label>
+    <input id="serialNumber" class="connect__input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" spellcheck="false" placeholder="Peripheral SerialNumber">
+
+    <label for="showNavigation">ShowNavigation bar at the top of the screen?
+        <input id="showNavigation" class="connect__input--checkbox" autocomplete="off" autocorrect="off" autocapitalize="off" type="checkbox" spellcheck="false">
+    </label>
+
+    <button class="blue-button" onclick="saveSettings()">Save Settings</button>
+    <button class="red-button" onclick="closeSettings()">Close Settings</button>
+</div>
+</body>
+</html>

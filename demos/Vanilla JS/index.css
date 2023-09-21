@@ -1,0 +1,124 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;  /* default to column, will switch to row in landscape */
+    width: 99vw;
+    overflow: auto;
+}
+
+.container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 500px;
+    margin: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.modern-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #3498db;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modern-button:hover {
+    background-color: #2980b9;
+}
+
+.log-box {
+    margin-top: 40px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-title {
+    margin: 0;
+}
+
+.clear-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #999; /* Gray color for the button */
+    transition: color 0.2s;
+}
+
+.clear-btn:hover {
+    color: #555; /* Darken the button on hover */
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;  /* Spacing between groups */
+    border: 1px solid #e0e0e0; /* Adding a border around each group */
+    padding: 20px; /* Padding inside each group */
+    border-radius: 10px; /* Rounded corners for the groups */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Optional: A subtle shadow for depth */
+}
+
+.group-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.output{
+    border: 1px solid #e0e0e0; 
+    padding: 20px; /* Padding inside each group */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Optional: A subtle shadow for depth */
+    margin-top: 10px; /* To add some space between the header and the output */
+}
+
+/* Media query for landscape mode */
+@media (orientation: landscape) {
+    body {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .container, .log-box {
+        margin-top: 0;
+    }
+
+    .log-box {
+        margin-left: 20px;  /* Spacing between .container and .log-box */
+    }
+}
