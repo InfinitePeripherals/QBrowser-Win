@@ -3,7 +3,7 @@
  * @version - Version 1.11.11
  * 
  * @author - Created by Infinite Peripherals
- * @copyright - Copyright © 2023 Infinite Peripherals Inc. All rights reserved.
+ * @copyright - Copyright Â© 2023 Infinite Peripherals Inc. All rights reserved.
  * 
  * @see - {@link https://github.com/InfinitePeripherals/qbrowser-demo | Demo Project}
  */
@@ -744,7 +744,7 @@ var QBrowser = new function () {
         }
 
         /**
-         * Starts the generation of updates that report the user’s current location
+         * Starts the generation of updates that report the userÂ’s current location
          * @memberof GPS
          * @param {number} locationAccuracy - Accuracy of the location data that your app wants to receive
          * @param {number} distanceFilter - Minimum distance (measured in meters) a device must move horizontally before an update event is generated
@@ -1703,8 +1703,7 @@ var QBrowser = new function () {
         this.Peripherals = {
             QPC150: "QPC-150",
             QPC250: "QPC-250",
-            QPP400: "QPP-400",
-            QPP450: "QPP-450",
+            QPP451: "QPP-451",
             QPR250: "QPR-250",
             QPR300: "QPR-300"
         };
