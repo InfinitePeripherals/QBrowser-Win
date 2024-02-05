@@ -46,10 +46,10 @@
             paymentEngine.setPeripheralStateHandler(peripheralStateHandler);
             paymentEngine.setPeripheralMessageHandler(peripheralMessageHandler);
 
-            var deviceSerialNumber = "1620900138";//use null for usb connection on Android.
+            var deviceSerialNumber = "1620900138";//use null for usb connection on Android or Windows.
             // Build a PaymentEngine object by setting its behaviour.
             paymentEngine.builder(qpayError)
-                .addPeripheral(qpay.Peripherals.QPP450, deviceSerialNumber, qpayError)
+                .addPeripheral(qpay.Peripherals.QPR300, deviceSerialNumber, qpayError)
                 .server(qpay.ServerEnvironments.TEST, qpayError)
                 .transactionTimeout(30, qpayError)
                 .emvApplicationSelectionStrategy(qpay.EmvApplicationSelectionStrategy.FIRST, qpayError)
