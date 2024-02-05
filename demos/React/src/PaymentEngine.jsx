@@ -264,7 +264,7 @@ const PaymentEngine = () => {
         var deviceSerialNumber = "1620900138";//use null for usb connection on Android.
         // Create a PaymentEngineBuilder to build a PaymentEngine object
         paymentEngine.builder(qpayError)
-            .addPeripheral(qpay.Peripherals.QPP450, deviceSerialNumber, qpayError)
+            .addPeripheral(qpay.Peripherals.QPP451, deviceSerialNumber, qpayError)
             .server(qpay.ServerEnvironments.TEST, qpayError)
             .transactionTimeout(30, qpayError)
             .emvApplicationSelectionStrategy(qpay.EmvApplicationSelectionStrategy.FIRST, qpayError)
